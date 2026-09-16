@@ -172,11 +172,20 @@
 
   /* Philosophy statement */
   .manifesto{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);background:var(--ink-2);}
-  .manifesto .wrap{padding-block:clamp(64px,9vw,110px);}
-  .manifesto blockquote{margin:0;max-width:24ch;}
+  .manifesto .wrap{display:grid;grid-template-columns:1.05fr .85fr;gap:clamp(36px,6vw,72px);align-items:center;padding-block:clamp(64px,9vw,110px);}
+  @media (max-width:820px){ .manifesto .wrap{grid-template-columns:1fr;gap:40px;} }
+  .manifesto blockquote{margin:0;max-width:none;}
   .manifesto .mk{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);}
-  .manifesto p{font-family:"Fraunces",serif;font-weight:300;font-size:clamp(26px,4.2vw,46px);line-height:1.22;color:var(--white);margin-top:26px;letter-spacing:-0.015em;max-width:20ch;}
+  .manifesto p{font-family:"Fraunces",serif;font-weight:300;font-size:clamp(26px,4.2vw,46px);line-height:1.22;color:var(--white);margin-top:26px;letter-spacing:-0.015em;max-width:none;}
   .manifesto p em{font-style:italic;color:var(--gold);}
+  .mani-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:8px;overflow:hidden;}
+  @media (max-width:400px){ .mani-stats{grid-template-columns:1fr;} }
+  .mani-stats .ms{background:var(--ink);padding:26px 24px;display:flex;flex-direction:column;gap:9px;transition:background .3s;}
+  .mani-stats .ms:hover{background:var(--ink-2);}
+  .mani-stats .n{font-family:"Fraunces",serif;font-weight:400;color:var(--gold-soft);font-size:clamp(30px,4vw,44px);line-height:1;font-variant-numeric:tabular-nums;}
+  .mani-stats .n small{font-size:.42em;color:var(--text-dim);margin-left:3px;font-family:"JetBrains Mono";vertical-align:baseline;}
+  .mani-stats .l{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);}
+
 
   /* Process */
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
@@ -258,6 +267,17 @@
   .qstatus.err{background:rgba(203,102,102,.12);border:1px solid rgba(203,102,102,.42);color:#e8bcbc;}
   .qstatus a{color:inherit;text-decoration:underline;}
 
+  /* Fun elements */
+  .scrollbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--gold-deep),var(--gold),var(--gold-soft));box-shadow:0 0 10px rgba(198,169,114,.5);transition:width .12s ease-out;}
+  .hero-figure .tag{animation:bob 5s ease-in-out infinite;}
+  .hero-figure .tag.b{animation-delay:1.4s;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+  .filament-strip{display:flex;gap:11px;margin-top:24px;}
+  .filament-strip i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px rgba(255,255,255,.03);animation:fpulse 2.6s ease-in-out infinite;}
+  .filament-strip i:nth-child(2){animation-delay:.2s}.filament-strip i:nth-child(3){animation-delay:.4s}.filament-strip i:nth-child(4){animation-delay:.6s}.filament-strip i:nth-child(5){animation-delay:.8s}.filament-strip i:nth-child(6){animation-delay:1s}.filament-strip i:nth-child(7){animation-delay:1.2s}.filament-strip i:nth-child(8){animation-delay:1.4s}
+  @keyframes fpulse{0%,100%{transform:scale(1);opacity:.5;}50%{transform:scale(1.35);opacity:1;}}
+  .confetti-piece{position:fixed;top:-14px;width:9px;height:9px;z-index:80;pointer-events:none;border-radius:1px;will-change:transform,opacity;}
+
   /* Footer */
   footer.site{border-top:1px solid var(--line-soft);padding-block:52px;position:relative;z-index:2;}
   .footrow{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;align-items:center;}
@@ -296,6 +316,7 @@
 
 <div class="grain" aria-hidden="true"></div>
 
+<div class="scrollbar" id="scrollbar" aria-hidden="true"></div>
 <header class="site" id="hdr">
   <div class="wrap navrow">
     <a class="brand" href="#top" aria-label="Threads and Layers home">
@@ -350,8 +371,8 @@
   <!-- MARQUEE -->
   <div class="marquee" aria-hidden="true">
     <div class="track">
-      <span>Bespoke</span><span>Multi-colour</span><span>Precise</span><span>Collector-grade</span><span>Made to spec</span><span>On demand</span>
-      <span>Bespoke</span><span>Multi-colour</span><span>Precise</span><span>Collector-grade</span><span>Made to spec</span><span>On demand</span>
+      <span>Bespoke</span><span>Multi-colour</span><span>Precise</span><span>Professional-grade</span><span>Made to spec</span><span>On demand</span>
+      <span>Bespoke</span><span>Multi-colour</span><span>Precise</span><span>Professional-grade</span><span>Made to spec</span><span>On demand</span>
     </div>
   </div>
 
@@ -377,7 +398,7 @@
       <div class="service reveal">
         <div class="idx">02</div>
         <div class="body">
-          <h3><span class="sub">Collector-grade</span>Miniatures &amp; collectibles</h3>
+          <h3><span class="sub">Professional-grade</span>Miniatures &amp; collectibles</h3>
           <p>Characters, busts, and display pieces printed with fine 0.08 mm layers — delivered clean and ready for your own paint and brush.</p>
           <div class="tags"><span>Tabletop</span><span>Busts</span><span>Display pieces</span><span>Paint-ready</span></div>
         </div>
@@ -401,8 +422,14 @@
     <div class="wrap reveal">
       <blockquote>
         <div class="mk">Our craft</div>
-        <p>Every piece begins as a single thread of filament — and ends as something you can <em>hold.</em></p>
+        <p>Every piece begins as a single thread of filament &mdash; and ends as something you can <em>hold.</em></p>
       </blockquote>
+      <div class="mani-stats">
+        <div class="ms"><span class="n">0.08<small>mm</small></span><span class="l">Finest layer height</span></div>
+        <div class="ms"><span class="n">8</span><span class="l">Colours in one print</span></div>
+        <div class="ms"><span class="n">2</span><span class="l">Pro FDM machines</span></div>
+        <div class="ms"><span class="n">5<small>+</small></span><span class="l">Materials on the shelf</span></div>
+      </div>
     </div>
   </div>
 
@@ -429,6 +456,7 @@
         <span class="eyebrow">Materials &amp; tolerances</span>
         <h2>The right medium <em>for the piece.</em></h2>
         <p>Not every object wants the same plastic. Here is what we keep on the shelf, and where each one earns its place.</p>
+        <div class="filament-strip" aria-hidden="true"><i style="--c:#7FA6D8"></i><i style="--c:#7FB98A"></i><i style="--c:#E39A4B"></i><i style="--c:#C77DD8"></i><i style="--c:#4FB0C6"></i><i style="--c:#D96B6B"></i><i style="--c:#E0A9C9"></i><i style="--c:#F2C94C"></i></div>
       </div>
       <div class="spec-grid">
         <div class="matcards reveal">
@@ -489,9 +517,6 @@
         <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DZxucJbpKA4/" data-instgrm-version="14"></blockquote>
         <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DY0uBSgJoG6/" data-instgrm-version="14"></blockquote>
         <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DYl31X-ptVH/" data-instgrm-version="14"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DYPqniApzmn/" data-instgrm-version="14"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DYGi0_jp0xh/" data-instgrm-version="14"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DYEJ0MBJTMy/" data-instgrm-version="14"></blockquote>
       </div>
       <div class="feed-links reveal">
         <a class="btn btn-primary" href="https://www.instagram.com/threadsandlayers/" target="_blank" rel="noopener">Follow @threadsandlayers for more</a>
@@ -654,13 +679,38 @@
 
 <script>
   (function(){
+    // scroll progress bar
+    var bar=document.getElementById('scrollbar');
+    function upd(){ if(!bar) return; var h=document.documentElement.scrollHeight-window.innerHeight; bar.style.width=(h>0?(window.scrollY/h)*100:0)+'%'; }
+    upd(); window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd);
+
+    // filament confetti
+    function celebrate(){
+      if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var colors=['#7FA6D8','#7FB98A','#E39A4B','#C77DD8','#4FB0C6','#D96B6B','#E0A9C9','#F2C94C','#C6A972'];
+      var n=window.innerWidth<600?18:30;
+      for(var i=0;i<n;i++){
+        var p=document.createElement('div'); p.className='confetti-piece';
+        p.style.background=colors[Math.floor(Math.random()*colors.length)];
+        p.style.left=(8+Math.random()*84)+'vw';
+        document.body.appendChild(p);
+        var dx=(Math.random()-.5)*180, dur=1800+Math.random()*1500, rot=Math.random()*720-360;
+        p.animate([
+          {transform:'translate(0,0) rotate(0deg)',opacity:1},
+          {transform:'translate('+dx+'px,'+(window.innerHeight+70)+'px) rotate('+rot+'deg)',opacity:1,offset:.85},
+          {transform:'translate('+dx+'px,'+(window.innerHeight+90)+'px) rotate('+rot+'deg)',opacity:0}
+        ],{duration:dur,easing:'cubic-bezier(.3,.6,.5,1)'}).onfinish=function(){this.effect.target.remove();};
+      }
+    }
+
+    // quote form
     var f=document.getElementById('quoteForm');
     if(!f) return;
     f.addEventListener('submit', async function(e){
       e.preventDefault();
       var btn=f.querySelector('button[type=submit]'), st=f.querySelector('.qstatus');
       if(!f.checkValidity()){ f.reportValidity(); return; }
-      btn.disabled=true; var label=btn.textContent; btn.textContent='Sending\u2026';
+      btn.disabled=true; var label=btn.textContent; btn.textContent='Sending…';
       try{
         var res=await fetch('https://formsubmit.co/ajax/ThreadsAndLayers@proton.me',{
           method:'POST', headers:{'Accept':'application/json'}, body:new FormData(f)
@@ -668,11 +718,11 @@
         if(!res.ok) throw new Error('bad status');
         await res.json();
         f.reset(); st.hidden=false; st.className='qstatus ok';
-        st.textContent='Thanks \u2014 your request is in. We\u2019ll email you back shortly.';
-        btn.textContent='Sent \u2713';
+        st.textContent='Thanks — your request is in. We’ll email you back shortly.';
+        btn.textContent='Sent ✓'; celebrate();
       }catch(err){
         st.hidden=false; st.className='qstatus err';
-        st.innerHTML='Sorry, that didn\u2019t go through. Please email us directly at <a href="mailto:ThreadsAndLayers@proton.me">ThreadsAndLayers@proton.me</a>.';
+        st.innerHTML='Sorry, that didn’t go through. Please email us directly at <a href="mailto:ThreadsAndLayers@proton.me">ThreadsAndLayers@proton.me</a>.';
         btn.disabled=false; btn.textContent=label;
       }
     });
