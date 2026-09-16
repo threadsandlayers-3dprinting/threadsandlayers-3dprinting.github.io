@@ -237,6 +237,27 @@
   .cta p{margin:20px auto 0;max-width:46ch;color:var(--text);font-size:17px;font-weight:300;}
   .cta .hero-cta{justify-content:center;margin-top:40px;}
 
+  /* Quote form */
+  .qform{margin-top:34px;text-align:left;display:flex;flex-direction:column;gap:16px;max-width:720px;margin-inline:auto;}
+  .qrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:640px){ .qrow{grid-template-columns:1fr;} }
+  .qform label{display:flex;flex-direction:column;gap:7px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dim);font-weight:600;}
+  .qform label .opt{letter-spacing:.04em;text-transform:none;font-weight:400;color:var(--text-dim);opacity:.7;}
+  .qform input,.qform select,.qform textarea{font-family:"Manrope",sans-serif;font-size:15px;font-weight:400;letter-spacing:normal;text-transform:none;color:var(--white);background:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:12px 14px;width:100%;transition:border-color .25s,background .25s;}
+  .qform input::placeholder,.qform textarea::placeholder{color:#6b6a63;}
+  .qform input:focus,.qform select:focus,.qform textarea:focus{outline:none;border-color:var(--gold);background:#15161a;}
+  .qform textarea{resize:vertical;line-height:1.6;}
+  .qform select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C6A972' fill='none' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer;}
+  .qform .qfull{width:100%;}
+  .qsubmit{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:4px;}
+  .qsubmit .btn{cursor:pointer;}
+  .qhint{font-size:12.5px;color:var(--text-dim);font-family:"JetBrains Mono";}
+  .qhint a{color:var(--gold);}
+  .qstatus{margin:4px 0 0;font-size:14.5px;padding:13px 16px;border-radius:6px;text-align:left;}
+  .qstatus.ok{background:rgba(111,185,138,.12);border:1px solid rgba(111,185,138,.42);color:#c2e6cf;}
+  .qstatus.err{background:rgba(203,102,102,.12);border:1px solid rgba(203,102,102,.42);color:#e8bcbc;}
+  .qstatus a{color:inherit;text-decoration:underline;}
+
   /* Footer */
   footer.site{border-top:1px solid var(--line-soft);padding-block:52px;position:relative;z-index:2;}
   .footrow{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;align-items:center;}
@@ -483,14 +504,66 @@
   <section id="quote">
     <div class="wrap">
       <div class="cta reveal">
-        <span class="eyebrow" style="justify-content:center;">Commission</span>
-        <h2>Have something <em>in mind?</em></h2>
-        <p>Send over your model or a description, and we'll return a quote — material, colours, timeline, and price, with no surprises.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="mailto:ThreadsAndLayers@proton.me?subject=3D%20Print%20Commission">Request a quote</a>
-          <a class="btn btn-line" href="mailto:ThreadsAndLayers@proton.me">ThreadsAndLayers@proton.me</a>
-        </div>
-        <p class="note" style="margin-top:22px;letter-spacing:.04em;">Prefer to talk? Call or text <a href="tel:+13608227868" style="color:var(--gold);">(360) 822-7868</a></p>
+        <span class="eyebrow" style="justify-content:center;">Request a quote</span>
+        <h2>Tell us about <em>your project.</em></h2>
+        <p>Fill this out and we'll email you back a quote &mdash; material, colours, timeline, and price. The more detail, the faster we can dial it in.</p>
+        <form id="quoteForm" class="qform" novalidate>
+          <div class="qrow">
+            <label>Name<input name="Name" type="text" autocomplete="name" required /></label>
+            <label>Email<input name="Email" type="email" autocomplete="email" required /></label>
+          </div>
+          <div class="qrow">
+            <label>Phone <span class="opt">(optional)</span><input name="Phone" type="tel" autocomplete="tel" /></label>
+            <label>What are you making?
+              <select name="Project type" required>
+                <option value="" disabled selected>Choose one&hellip;</option>
+                <option>Custom / functional part</option>
+                <option>Miniature / figurine</option>
+                <option>Cosplay / prop</option>
+                <option>Household / d&eacute;cor</option>
+                <option>Other</option>
+              </select>
+            </label>
+          </div>
+          <div class="qrow">
+            <label>Do you have a model file?
+              <select name="Model file">
+                <option value="" disabled selected>Choose one&hellip;</option>
+                <option>Yes &mdash; I'll email an STL / OBJ / 3MF / STEP</option>
+                <option>No &mdash; I have a reference or idea</option>
+                <option>I need help designing it</option>
+              </select>
+            </label>
+            <label>Material
+              <select name="Material">
+                <option value="" disabled selected>Recommend one / choose&hellip;</option>
+                <option>Not sure &mdash; recommend one</option>
+                <option>PLA</option>
+                <option>PETG</option>
+                <option>ABS / ASA</option>
+                <option>TPU (flexible)</option>
+                <option>Specialty (silk, matte, CF, glow)</option>
+              </select>
+            </label>
+          </div>
+          <div class="qrow">
+            <label>Colour(s)<input name="Colours" type="text" placeholder="e.g. black + gold, or full multi-colour" /></label>
+            <label>Quantity<input name="Quantity" type="number" min="1" value="1" /></label>
+          </div>
+          <div class="qrow">
+            <label>Approx. size / dimensions<input name="Size" type="text" placeholder="e.g. ~15 cm tall" /></label>
+            <label>Needed by <span class="opt">(optional)</span><input name="Needed by" type="date" /></label>
+          </div>
+          <label class="qfull">Project details<textarea name="Details" rows="5" required placeholder="Describe what you'd like printed &mdash; use, look, finish, anything that helps."></textarea></label>
+          <input type="hidden" name="_subject" value="New quote request &mdash; Threads and Layers" />
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;" />
+          <div class="qsubmit">
+            <button type="submit" class="btn btn-primary">Send request</button>
+            <span class="qhint">Got a file? Email it to <a href="mailto:ThreadsAndLayers@proton.me">ThreadsAndLayers@proton.me</a></span>
+          </div>
+          <p class="qstatus" role="status" hidden></p>
+        </form>
+        <p class="note" style="margin-top:24px;">Prefer email? Reach us any time at <a href="mailto:ThreadsAndLayers@proton.me" style="color:var(--gold);">ThreadsAndLayers@proton.me</a> &nbsp;&middot;&nbsp; <span style="color:var(--text-dim);">or call / text (360) 822-7868</span></p>
       </div>
     </div>
   </section>
@@ -576,5 +649,32 @@
       });
     },{threshold:0.14,rootMargin:'0px 0px -50px 0px'});
     els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+
+<script>
+  (function(){
+    var f=document.getElementById('quoteForm');
+    if(!f) return;
+    f.addEventListener('submit', async function(e){
+      e.preventDefault();
+      var btn=f.querySelector('button[type=submit]'), st=f.querySelector('.qstatus');
+      if(!f.checkValidity()){ f.reportValidity(); return; }
+      btn.disabled=true; var label=btn.textContent; btn.textContent='Sending\u2026';
+      try{
+        var res=await fetch('https://formsubmit.co/ajax/ThreadsAndLayers@proton.me',{
+          method:'POST', headers:{'Accept':'application/json'}, body:new FormData(f)
+        });
+        if(!res.ok) throw new Error('bad status');
+        await res.json();
+        f.reset(); st.hidden=false; st.className='qstatus ok';
+        st.textContent='Thanks \u2014 your request is in. We\u2019ll email you back shortly.';
+        btn.textContent='Sent \u2713';
+      }catch(err){
+        st.hidden=false; st.className='qstatus err';
+        st.innerHTML='Sorry, that didn\u2019t go through. Please email us directly at <a href="mailto:ThreadsAndLayers@proton.me">ThreadsAndLayers@proton.me</a>.';
+        btn.disabled=false; btn.textContent=label;
+      }
+    });
   })();
 </script>
